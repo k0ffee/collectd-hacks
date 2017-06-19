@@ -1,0 +1,14 @@
+--- df.c	2017-06-06 20:13:54.000000000 +0200
++++ df_zfs.c	2017-06-16 18:14:23.000000000 +0200
+@@ -180,6 +180,11 @@
+     if (ignorelist_match(il_fstype, mnt_ptr->type))
+       continue;
+ 
++    char const *is_snapshot = "/.zfs/snapshot";
++
++    if (strstr(mnt_ptr->dir, is_snapshot))
++      continue;
++
+     /* search for duplicates *in front of* the current mnt_ptr. */
+     for (dup_ptr = mnt_list; dup_ptr != NULL; dup_ptr = dup_ptr->next) {
+       /* No duplicate found: mnt_ptr is the first of its kind. */
